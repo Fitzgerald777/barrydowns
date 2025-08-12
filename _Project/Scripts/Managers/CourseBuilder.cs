@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Manages the primary logic for the 2D course editor, including object placement and selection.
@@ -20,8 +21,11 @@ public class CourseBuilder : MonoBehaviour
 
     void Update()
     {
+        // Ensure the pointer is valid before using it
+        if (Pointer.current == null) return;
+
         // Example logic for placing an object
-        if (selectedObjectToBuild != null && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
+        if (selectedObjectToBuild != null && Pointer.current.leftButton.wasPressedThisFrame && !IsPointerOverUI())
         {
             // Raycast from mouse position to the ground plane to get the world position
             // Vector3 placePosition = GetMouseWorldPosition();
@@ -29,7 +33,7 @@ public class CourseBuilder : MonoBehaviour
         }
 
         // Example logic for selecting an object
-        if (Input.GetMouseButtonDown(0) && !IsPointerOverUI())
+        if (Pointer.current.leftButton.wasPressedThisFrame && !IsPointerOverUI())
         {
             // Raycast to see if the user clicked on an existing object
             // GameObject clickedObject = GetClickedObject();

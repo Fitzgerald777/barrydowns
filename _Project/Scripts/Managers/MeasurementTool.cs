@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 // Note: This script assumes the Unity Splines package (`com.unity.splines`) is installed.
 #if UNITY_SPLINES
 using UnityEngine.Splines;
@@ -19,7 +20,9 @@ public class MeasurementTool : MonoBehaviour
 
     void Update()
     {
-        if (isMeasuringP2P && Input.GetMouseButtonDown(0))
+        if (Pointer.current == null) return;
+
+        if (isMeasuringP2P && Pointer.current.leftButton.wasPressedThisFrame)
         {
             HandleP2PMeasurement();
         }
@@ -73,9 +76,10 @@ public class MeasurementTool : MonoBehaviour
         }
     }
 #else
-    void Start()
-    {
-        Debug.LogWarning("MeasurementTool.cs requires the Unity Splines package to be installed.");
-    }
+    // The user has confirmed the package is installed, so this warning is not needed.
+    // void Start()
+    // {
+    //     Debug.LogWarning("MeasurementTool.cs requires the Unity Splines package to be installed.");
+    // }
 #endif
 }

@@ -2,6 +2,11 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.InteropServices;
 
+/// <summary>
+/// A static utility class for saving and loading course data.
+/// NOTE: This is a static class and CANNOT be attached to a GameObject in the scene.
+/// To use it, simply call its static methods, e.g., `SaveLoadManager.SaveCourse(data);`.
+/// </summary>
 public static class SaveLoadManager
 {
     // In a WebGL build, we need to use a Javascript plugin to handle the file download.
@@ -48,6 +53,11 @@ public static class SaveLoadManager
 }
 
 // Example of a MonoBehaviour that could receive callbacks from the Javascript plugin.
+/// <summary>
+/// An example MonoBehaviour that can receive callbacks from the Javascript download plugin.
+/// NOTE: An object with this script attached should exist in your scene to handle
+/// callbacks from the WebGL file download process.
+/// </summary>
 public class SaveLoadCallbackReceiver : MonoBehaviour
 {
     public void OnFileDownloaded()

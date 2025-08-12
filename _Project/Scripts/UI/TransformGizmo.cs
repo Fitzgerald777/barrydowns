@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Manages the logic for a runtime transform gizmo that can rotate and scale an object.
@@ -21,7 +22,7 @@ public class TransformGizmo : MonoBehaviour
 
     void Update()
     {
-        if (target == null) return;
+        if (target == null || Pointer.current == null) return;
 
         // Follow the target's position
         transform.position = target.position;
@@ -30,13 +31,13 @@ public class TransformGizmo : MonoBehaviour
         // This is a simplified representation of how the logic would work.
         // A real implementation would involve raycasting to the specific gizmo handles.
 
-        if (Input.GetMouseButtonDown(0))
+        if (Pointer.current.leftButton.wasPressedThisFrame)
         {
             // Here you would check if the mouse is over a specific handle (e.g., rotation or scale)
             // For example: if (IsMouseOverRotationHandle()) currentMode = GizmoMode.Rotating;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Pointer.current.leftButton.wasReleasedThisFrame)
         {
             currentMode = GizmoMode.None;
         }
@@ -73,8 +74,9 @@ public class TransformGizmo : MonoBehaviour
 
     private void HandleRotation()
     {
+        if (Pointer.current == null) return;
         // Example: Rotate based on mouse movement around the object
-        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
         Vector3 dir = mousePos - target.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         target.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -82,8 +84,9 @@ public class TransformGizmo : MonoBehaviour
 
     private void HandleScaling()
     {
+        if (Pointer.current == null) return;
         // Example: Scale width based on horizontal mouse movement
-        float mouseDeltaX = Input.GetAxis("Mouse X");
+        float mouseDeltaX = Pointer.current.delta.ReadValue().x;
         Vector3 currentScale = target.localScale;
         currentScale.x += mouseDeltaX;
         target.localScale = currentScale;

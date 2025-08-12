@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 // Note: This script assumes the Unity Splines package (`com.unity.splines`) is installed.
 // If it's not, the 'using UnityEngine.Splines;' and related types will cause errors.
 #if UNITY_SPLINES
@@ -19,8 +20,10 @@ public class PathTool : MonoBehaviour
 
     void Update()
     {
+        if (Pointer.current == null) return;
+
         // This is example logic. A real implementation would need a robust way to get mouse position in world space.
-        if (isToolActive && Input.GetMouseButtonDown(0))
+        if (isToolActive && Pointer.current.leftButton.wasPressedThisFrame)
         {
             // Vector3 worldPoint = GetMouseWorldPosition();
             // AddPointToSpline(worldPoint);
@@ -68,9 +71,10 @@ public class PathTool : MonoBehaviour
         Debug.Log("Updating CourseData with new spline information.");
     }
 #else
-    void Start()
-    {
-        Debug.LogWarning("PathTool.cs requires the Unity Splines package to be installed.");
-    }
+    // The user has confirmed the package is installed, so this warning is not needed.
+    // void Start()
+    // {
+    //    Debug.LogWarning("PathTool.cs requires the Unity Splines package to be installed.");
+    // }
 #endif
 }
