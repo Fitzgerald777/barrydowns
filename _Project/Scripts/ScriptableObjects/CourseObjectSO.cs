@@ -1,4 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public struct MaterialItem
+{
+    public string name;
+    public int quantity;
+}
 
 /// <summary>
 /// Defines a ScriptableObject that holds the data for a single type of course object (e.g., a specific jump or decoration).
@@ -21,4 +29,8 @@ public class CourseObjectSO : ScriptableObject
 
     [Tooltip("The prefab to instantiate for the 3D perspective view.")]
     public GameObject prefab3D;
+
+    [Header("Bill of Materials")]
+    [Tooltip("The list of materials and quantities needed to build this object.")]
+    public List<MaterialItem> materials;
 }
