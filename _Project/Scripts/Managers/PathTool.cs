@@ -20,10 +20,10 @@ public class PathTool : MonoBehaviour
 
     void Update()
     {
-        if (Pointer.current == null) return;
+        if (Mouse.current == null) return;
 
         // This is example logic. A real implementation would need a robust way to get mouse position in world space.
-        if (isToolActive && Pointer.current.leftButton.wasPressedThisFrame)
+        if (isToolActive && Mouse.current.leftButton.wasPressedThisFrame)
         {
             // Vector3 worldPoint = GetMouseWorldPosition();
             // AddPointToSpline(worldPoint);

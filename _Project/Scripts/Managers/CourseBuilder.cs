@@ -21,11 +21,11 @@ public class CourseBuilder : MonoBehaviour
 
     void Update()
     {
-        // Ensure the pointer is valid before using it
-        if (Pointer.current == null) return;
+        // Ensure the mouse is present before using it
+        if (Mouse.current == null) return;
 
         // Example logic for placing an object
-        if (selectedObjectToBuild != null && Pointer.current.leftButton.wasPressedThisFrame && !IsPointerOverUI())
+        if (selectedObjectToBuild != null && Mouse.current.leftButton.wasPressedThisFrame && !IsPointerOverUI())
         {
             // Raycast from mouse position to the ground plane to get the world position
             // Vector3 placePosition = GetMouseWorldPosition();
@@ -33,7 +33,7 @@ public class CourseBuilder : MonoBehaviour
         }
 
         // Example logic for selecting an object
-        if (Pointer.current.leftButton.wasPressedThisFrame && !IsPointerOverUI())
+        if (Mouse.current.leftButton.wasPressedThisFrame && !IsPointerOverUI())
         {
             // Raycast to see if the user clicked on an existing object
             // GameObject clickedObject = GetClickedObject();

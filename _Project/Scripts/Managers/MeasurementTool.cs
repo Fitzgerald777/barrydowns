@@ -20,9 +20,9 @@ public class MeasurementTool : MonoBehaviour
 
     void Update()
     {
-        if (Pointer.current == null) return;
+        if (Mouse.current == null) return;
 
-        if (isMeasuringP2P && Pointer.current.leftButton.wasPressedThisFrame)
+        if (isMeasuringP2P && Mouse.current.leftButton.wasPressedThisFrame)
         {
             HandleP2PMeasurement();
         }

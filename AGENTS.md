@@ -12,12 +12,12 @@ This is a Unity project for designing equestrian show jumping courses. It includ
 This project uses the **new Unity Input System** (`UnityEngine.InputSystem`). All new input-related code **must** use this system.
 
 - **Do not use** the old `UnityEngine.Input` API (e.g., `Input.GetMouseButtonDown`, `Input.GetAxis`). Using it will cause `InvalidOperationException` errors at runtime.
-- For mouse input, use the `Pointer` class.
-  - **Example (Mouse Click):** `Pointer.current.leftButton.wasPressedThisFrame`
-  - **Example (Mouse Position):** `Pointer.current.position.ReadValue()`
-  - **Example (Mouse Delta):** `Pointer.current.delta.ReadValue()`
+- For mouse-specific input, use the `Mouse` class. The generic `Pointer` class does not have button-specific properties.
+  - **Example (Mouse Click):** `Mouse.current.leftButton.wasPressedThisFrame`
+  - **Example (Mouse Position):** `Mouse.current.position.ReadValue()`
+  - **Example (Mouse Delta):** `Mouse.current.delta.ReadValue()`
 - Remember to add `using UnityEngine.InputSystem;` to your scripts.
-- Always check if `Pointer.current` is null before accessing it, especially in `Update()` loops.
+- Always check if `Mouse.current` is null before accessing it, especially in `Update()` loops.
 
 ### Static vs. MonoBehaviour Managers
 The project uses two types of manager classes:
